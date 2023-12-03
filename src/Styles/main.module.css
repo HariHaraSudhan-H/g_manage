@@ -1,0 +1,11 @@
+.WebHeader{
+    height: 40vh;
+    padding: 2.5rem;
+    background: url("../Constants/Images//MainCover.jpg") no-repeat;
+    background-size: 100%;
+}
+
+.WebHeader h1{
+    color: rgb(28, 28, 29);
+    font-weight: 700;
+}
