@@ -1,9 +1,67 @@
 import React, { useState } from "react";
 import styles from "../Styles/main.module.css";
+import {
+  updateList,
+  updateTodayList,
+  updateUpcomingList,
+} from "../Redux/Actions";
+import { todayDate } from "./App";
+import { connect } from "react-redux";
 
 const Client = (props) => {
   const [editMode, setEditMode] = useState(false);
-  const { data, date } = props;
+  const { data, date, dispatch } = props;
+  const [firstName, setFirstName] = useState(data.firstName);
+  const [secondName, setSecondName] = useState(data.lastname);
+  const [age, setAge] = useState(data.age);
+  const [location, setLocation] = useState(data.location);
+  const [appdate, setDate] = useState(data.date);
+  const [time, setTime] = useState(data.time);
+  const handleDelete = (id) => {
+    const list = props.list.filter((client) => client.id !== id);
+
+    dispatch(updateList(list));
+    if (
+      data.date.toString() ===
+      `${todayDate.getFullYear()}-${todayDate.getMonth() + 1}-${(
+        "0" + todayDate.getDay()
+      ).slice(-2)}`.toString()
+    ) {
+      const todayList = props.todayAppointments.filter(
+        (client) => client.id !== id
+      );
+      dispatch(updateTodayList(todayList));
+    } else {
+      const upcomingList = props.upcomingAppointments.filter(
+        (client) => client.id !== id
+      );
+      dispatch(updateUpcomingList(upcomingList));
+    }
+  };
+
+  const handleEdit = (id) => {
+    setEditMode(true);
+  };
+
+  const handleSave = (id)=>{
+    props.list.map((client)=>{
+      if(client.id===id){
+        const newData = {
+          id: data.id,
+          firstname: firstName,
+          lastname: secondName,
+          age: age,
+          location: location,
+          date: date,
+          time: time,
+        };
+
+
+      }
+    })
+    setEditMode(false);
+  }
+
   return (
     <div className={styles.userContainer}>
       {editMode ? (
@@ -15,16 +73,28 @@ const Client = (props) => {
                 type="text"
                 placeholder="First Name"
                 value={data.firstname}
+                onChange={(e) => {
+                  setFirstName(e.target.value);
+                }}
               />
               <input
                 class="input"
                 type="text"
                 placeholder="Last Name"
                 value={data.lastname}
+                onChange={(e) => {
+                  setSecondName(e.target.value);
+                }}
               />
             </div>
             <div className={styles.userAppDetails}>
-              <input class="input" type="date" />
+              <input
+                class="input"
+                type="date"
+                onChange={(e) => {
+                  setDate(e.target.value);
+                }}
+              />
               <div className={styles.locationDetails}>
                 <img src="https://img.icons8.com/ios-glyphs/30/FA5252/marker--v1.png" />
                 <input
@@ -32,12 +102,19 @@ const Client = (props) => {
                   type="text"
                   placeholder="Location"
                   value={data.location}
+                  onChange={(e) => {
+                    setLocation(e.target.value);
+                  }}
                 />
               </div>
               <div className={styles.timeDetails}>
                 <img src="https://img.icons8.com/ios-glyphs/30/40C057/time--v1.png" />
                 <div class="select">
-                  <select>
+                  <select
+                    onChange={(e) => {
+                      setTime(e.target.value);
+                    }}
+                  >
                     <option>Time</option>
                     <option>8-9AM</option>
                     <option>9-10AM</option>
@@ -57,7 +134,7 @@ const Client = (props) => {
           <div>
             <button
               onClick={(e) => {
-                setEditMode(false);
+                handleSave(data.id);
               }}
             >
               <img src="https://img.icons8.com/ios-glyphs/30/40C057/save.png" />
@@ -90,11 +167,18 @@ const Client = (props) => {
           </div>
           <div>
             <button
+              className={styles.editButton}
               onClick={(e) => {
-                setEditMode(true);
+                handleEdit(data.id);
               }}
             >
               <img src="https://img.icons8.com/ios-glyphs/30/40C057/edit.png" />
+            </button>
+            <button
+              className={styles.deleteButton}
+              onClick={() => handleDelete(data.id)}
+            >
+              <img src="https://img.icons8.com/ios-glyphs/30/FA5252/filled-trash.png" />
             </button>
           </div>
         </>
@@ -103,4 +187,11 @@ const Client = (props) => {
   );
 };
 
-export default Client;
+const callback = (state) => {
+  console.log(state);
+  return {
+    ...state,
+  };
+};
+
+export default connect(callback)(Client);

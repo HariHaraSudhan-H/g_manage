@@ -1,34 +1,59 @@
 import React, { useState } from "react";
 import styles from "../Styles/main.module.css";
-import { todayAppointments } from "../Pages/Home";
+import { todayAppointments, weekAppointments } from "../Pages/Home";
+import { connect } from "react-redux";
+import { updateList, updateTodayList, updateUpcomingList } from "../Redux/Actions";
+import { todayDate } from "./App";
 
 const CreateForm = (props) => {
-    const today = new Date();
+  const today = new Date();
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
   const [age, setAge] = useState("");
   const [location, setLocation] = useState("");
-  const [date, setDate] = useState(`${today.getFullYear()}-${today.getMonth()+1}-${("0"+today.getDay()).slice(-2)}`);
+  const [date, setDate] = useState(
+    `${today.getFullYear()}-${today.getMonth() + 1}-${(
+      "0" + today.getDay()
+    ).slice(-2)}`
+  );
   const [time, setTime] = useState("");
-  const { createMode, setCreateMode } = props;
+  const { createMode, setCreateMode, dispatch } = props;
   const handleClose = () => {
     document.getElementById("main").style.filter = "";
     setCreateMode(false);
   };
 
   const handleCreate = () => {
-      setCreateMode(false);
+    setCreateMode(false);
     const newData = {
-        firstname: firstName,
-        lastname: secondName,
-        age: age,
-        location: location,
-        date: date,
-        time: time
+      id: props.list.length,
+      firstname: firstName,
+      lastname: secondName,
+      age: age,
+      location: location,
+      date: date,
+      time: time,
+    };
+    // todayAppointments.push(newData);
+    dispatch(updateList([...props.list, newData]));
+    if (
+      newData.date.toString() ===
+      `${todayDate.getFullYear()}-${todayDate.getMonth() + 1}-${(
+        "0" + todayDate.getDay()
+      ).slice(-2)}`.toString()
+    ) {
+      todayAppointments.push(newData);
+    dispatch(updateTodayList([...todayAppointments]));
+    }else{
+        weekAppointments.push(newData);
+        dispatch(updateUpcomingList([...weekAppointments]));
     }
-    todayAppointments.push(newData);
     console.log(todayAppointments);
     document.getElementById("main").style.filter = "";
+  };
+
+  const handleTimeChange = (e) => {
+    setTime(e.target.value);
   };
   return (
     <div className={styles.createForm}>
@@ -84,11 +109,11 @@ const CreateForm = (props) => {
           value={date}
           onChange={(e) => {
             setDate(e.target.value);
-            console.log(typeof(e.target.value))
+            console.log(typeof e.target.value);
           }}
         />
         <div class="select">
-          <select>
+          <select onChange={handleTimeChange}>
             <option>Select dropdown</option>
             <option>8 - 9 AM</option>
             <option>9 - 10 AM</option>
@@ -109,4 +134,11 @@ const CreateForm = (props) => {
   );
 };
 
-export default CreateForm;
+const callback = (state) => {
+  console.log(state);
+  return {
+    ...state,
+  };
+};
+
+export default connect(callback)(CreateForm);

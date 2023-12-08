@@ -170,12 +170,17 @@
     margin: 0.5rem;
 }
 
-.userContainer button{
+.userContainer .editButton,.deleteButton{
     position: absolute;
     right: 5px;
     top: 5px;
     background-color: transparent;
     border: 0px;
+}
+
+.deleteButton{
+    right: 5px;
+    top:40px
 }
 .userContainer button img{
     width: 1.25rem;
