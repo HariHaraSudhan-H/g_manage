@@ -9,3 +9,199 @@
     color: rgb(28, 28, 29);
     font-weight: 700;
 }
+
+.appointmentStatus{
+    background-color: white;
+    display: flex;
+    width: 20%;
+    justify-content: space-evenly;
+    margin: 1rem;
+    padding: 0.5rem;
+    border-radius: 10px;
+    height: 90px;
+}
+
+.appointmentStatus h2{
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.appointmentStatus >span{
+    display: flex;
+    width: 30%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: lightgray;
+    padding: 0.5rem;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    /* border: 1px solid black; */
+}
+
+.createForm{
+    position: absolute;
+    width: 40%;
+    min-width: 400px;
+    height: 40%;
+    background: whitesmoke;
+    padding: 2rem;
+    left: 30%;
+    top: 30%;
+    margin: auto;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    z-index: 5;
+}
+
+.createForm h1{
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.nameFields{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
+}
+.nameFields input[type=text]{
+    width: 47.5%;
+}
+
+.createForm button{
+    width: 30%;
+    color: white;
+    background-color: green ;
+}
+
+.closeButton{
+    position: absolute;
+    right: 5%;
+    top: 5%;
+}
+
+.userAgeLocation{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.userAgeLocation input{
+    width: 47.5%;
+}
+
+.timeDateSelection{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.timeDateSelection input{
+    width: 60%;
+}
+
+.mainBody{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.appointmentsSection{
+    padding: 2rem;
+    width: 45%;
+}
+
+.appointmentsSection h1{
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.userContainer{
+    margin: 1rem;
+    background: linear-gradient(160deg,rgb(78, 74, 74),rgb(82, 81, 81));
+    padding: 0.5rem;
+    border-radius: 10px;
+    color: azure;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: relative;
+}
+
+.userDateContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color:gray;
+    padding: 0.35rem;
+    font-size: 0.75rem;
+    border-radius: 5px;
+    width: 10%;
+    justify-content: center;
+}
+
+.userInfoContainer{
+    padding: 0.5rem;
+    width: 90%;
+}
+
+.userInfoContainer img{
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0 0.25rem;
+}
+
+.userInfoContainer span{
+    margin: 0.5rem 0.25rem;
+}
+
+.userAppDetails{
+    display: flex;
+   
+}
+
+.userAppDetails input{
+    width: 25%;
+    margin: 0.5rem;
+}
+
+.userContainer button{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    background-color: transparent;
+    border: 0px;
+}
+.userContainer button img{
+    width: 1.25rem;
+    height: 1.25rem;
+
+}
+
+.userContainer input,select{
+    height: 35px;
+}
+.locationDetails,.timeDetails{
+    display: flex;
+    align-items: center;
+}
+
+.locationDetails input{
+    width: 70%;
+}
+
+.timeDetails div{
+    width: 70%;
+    height: 35px;
+    margin: 0.5rem;
+}
+
+.locationDetails img,.timeDetails img{
+    width: 1.5rem;
+    height: 1.5rem;
+}

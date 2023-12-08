@@ -1,18 +1,20 @@
 import Navbar from "./Navbar";
 import styles from "../Styles/main.module.css"
+import { Route, Routes } from "react-router-dom";
+import Home from "../Pages/Home";
+import Calendar from "../Pages/Calendar";
+import { useState } from "react";
+import CreateForm from "./CreateForm";
 function App() {
+  const [createMode,setCreateMode] = useState(false);
   return (
     <div className="App">
-      <Navbar />
-      <header className={styles.WebHeader}>
-        <h1 className="title is-2 is-spaced">Hii Trainer!</h1>
-        <div>
-        <h1>Appointments</h1>
-        Today 0
-        This Month 0
-        Total 10
-        </div>
-      </header>
+      <Navbar createMode={createMode} setCreateMode={setCreateMode}/>
+      {createMode?<CreateForm createMode={createMode} setCreateMode={setCreateMode}/>:<></>}
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/calendar" element={<Calendar/>}/>
+      </Routes>
     </div>
   );
 }
