@@ -1,14 +1,24 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "../Styles/main.module.css";
 import Client from "../Components/Client";
 import { connect } from "react-redux";
 import { todayDate } from "../Components/App";
 
 const Home = (props) => {
+  const getGreetings = () => {
+    const time = todayDate.getHours();
+    if (time > 0 && time < 12) {
+      return "Good Morning";
+    } else if (time > 11 && time <= 15) {
+      return "Good Afternoon";
+    } else {
+      return "Good Evening";
+    }
+  };
   return (
     <div id="main">
       <header className={styles.WebHeader}>
-        <h1 className="title is-2 is-spaced">Hii Trainer!</h1>
+        <h1 className="">Hi {getGreetings()}</h1>
         <div>
           <h1>Appointments</h1>
           <div className={styles.appointmentStatus}>
@@ -17,12 +27,15 @@ const Home = (props) => {
               <span>{props.todayAppointments.length}</span>
             </span>
             <span>
-              <h2>This Week</h2>
+              <h2>Week</h2>
               <span>{props.upcomingAppointments.length}</span>
             </span>
             <span>
               <h2>Total</h2>
-              <span>{props.todayAppointments.length+props.upcomingAppointments.length}</span>
+              <span>
+                {props.todayAppointments.length +
+                  props.upcomingAppointments.length}
+              </span>
             </span>
           </div>
         </div>
@@ -31,16 +44,24 @@ const Home = (props) => {
         <section className={styles.appointmentsSection}>
           <h1>Today's Appointments</h1>
           <div>
-            {props.todayAppointments.map((data) => {
-              return <Client data={data} date={todayDate} />;
-            })}
+            {props.todayAppointments.length > 0 ? (
+              props.todayAppointments.map((data) => {
+                return <Client data={data} date={new Date(data.date)} />;
+              })
+            ) : (
+              <div className={styles.zeroAppointmentsMessage}>No Appointments</div>
+            )}
           </div>
         </section>
         <section className={styles.appointmentsSection}>
           <h1>Upcoming Appointments</h1>
-          {props.upcomingAppointments.map((data) => {
-            return <Client data={data} date={new Date(data.date)} />;
-          })}
+          {props.upcomingAppointments.length > 0 ? (
+            props.upcomingAppointments.map((data) => {
+              return <Client data={data} date={new Date(data.date)} />;
+            })
+          ) : (
+            <div className={styles.zeroAppointmentsMessage}>No Appointments</div>
+          )}
         </section>
       </main>
     </div>

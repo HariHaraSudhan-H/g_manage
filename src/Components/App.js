@@ -28,7 +28,7 @@ function App(props) {
     );
     dispatch(updateTodayList(updatedTodayList));
     dispatch(updateUpcomingList(updatedUpcomingList));
-  }, [props.list]);
+  }, [list,dispatch]);
 
   return (
     <div className="App">

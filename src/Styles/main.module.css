@@ -1,219 +1,347 @@
-.WebHeader{
-    height: 40vh;
-    padding: 2.5rem;
-    background: url("../Constants/Images//MainCover.jpg") no-repeat;
-    background-size: 100%;
+.WebHeader {
+  height: 40vh;
+  padding: 2rem;
+  background: url("../Constants/Images//MainCover.jpg") no-repeat;
+  background-size: 100%;
 }
 
-.WebHeader h1{
-    color: rgb(28, 28, 29);
-    font-weight: 700;
+.WebHeader>h1 {
+  color: rgb(28, 28, 29);
+  font-weight: 800;
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
-.appointmentStatus{
-    background-color: white;
-    display: flex;
-    width: 20%;
-    justify-content: space-evenly;
-    margin: 1rem;
-    padding: 0.5rem;
-    border-radius: 10px;
-    height: 90px;
+.WebHeader>div>h1{
+  color: rgb(28, 28, 29);
+  font-weight: 600;
+  font-size:1.25rem;
 }
 
-.appointmentStatus h2{
-    font-weight: 700;
-    font-size: 0.85rem;
+.appointmentStatus {
+  background-color: white;
+  display: flex;
+  width: 25%;
+  justify-content: space-evenly;
+  margin: 1rem;
+  padding: 0.5rem;
+  border-radius: 10px;
+  height: 90px;
 }
 
-.appointmentStatus >span{
-    display: flex;
+.appointmentStatus h2 {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.appointmentStatus > span {
+  display: flex;
+  width: 30%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: lightgray;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.createForm {
+  position: absolute;
+  width: 40%;
+  min-width: 350px;
+  height: 40%;
+  background: whitesmoke;
+  padding: 2rem;
+  left: 30%;
+  top: 30%;
+  margin: auto;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  z-index: 5;
+}
+
+.createForm h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.nameFields {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80%;
+}
+.nameFields input[type="text"] {
+  width: 47.5%;
+}
+
+.createForm button {
+  width: 30%;
+  color: white;
+  background-color: green;
+}
+
+.closeButton {
+  position: absolute;
+  right: 5%;
+  top: 5%;
+}
+
+.closeButton:hover{
+  cursor: pointer;
+}
+
+.userAgeLocation {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.userAgeLocation input {
+  width: 47.5%;
+}
+
+.timeDateSelection {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.timeDateSelection input {
+  width: 47.5%;
+}
+
+.timeDateSelection select {
+  width: 100%;
+}
+
+.mainBody {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.appointmentsSection {
+  padding: 2rem;
+  width: 48%;
+}
+
+.appointmentsSection h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.zeroAppointmentsMessage{
+  text-align: center;
+  margin: 5rem;
+  font-size: 1rem;
+}
+
+.userContainer {
+  margin: 1rem;
+  background: linear-gradient(160deg, rgb(78, 74, 74), rgb(82, 81, 81));
+  padding: 0.5rem;
+  border-radius: 10px;
+  color: azure;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  position: relative;
+}
+
+.userDateContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: gray;
+  padding: 0.35rem;
+  margin: 0.5rem;
+  font-size: 0.75rem;
+  border-radius: 5px;
+  width: 12%;
+  justify-content: center;
+}
+
+.userInfoContainer {
+  padding: 0.5rem;
+  width: 90%;
+}
+
+.userInfoContainer img {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0 0.25rem;
+}
+
+.userInfoContainer span {
+  margin: 0.5rem 0.25rem;
+}
+
+.userAppDetails {
+  display: flex;
+}
+
+.userAppDetails input {
+  width: 25%;
+  margin: 0.5rem;
+}
+
+.userContainer .editButton,
+.deleteButton {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  background-color: transparent;
+  border: 0px;
+}
+
+.deleteButton {
+  right: 5px;
+  top: 40px;
+}
+
+.userContainer button img {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.userContainer input,
+select {
+  height: 35px;
+}
+.locationDetails,
+.timeDetails {
+  display: flex;
+  align-items: center;
+}
+
+.locationDetails input {
+  width: 70%;
+}
+
+.timeDetails div {
+  width: 70%;
+  height: 35px;
+  margin: 0.5rem;
+}
+
+.locationDetails img,
+.timeDetails img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Media Queries */
+
+@media screen and (max-width: 1200px) {
+  .appointmentsSection {
+    width: 49%;
+    padding: 1rem;
+  }
+
+  .userContainer {
+    width: 95%;
+    margin: 1rem 0rem;
+  }
+
+  .appointmentStatus{
     width: 30%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: lightgray;
-    padding: 0.5rem;
-    border-radius: 5px;
-    font-size: 0.85rem;
-    /* border: 1px solid black; */
+  }
 }
 
-.createForm{
-    position: absolute;
-    width: 40%;
-    min-width: 400px;
-    height: 40%;
-    background: whitesmoke;
-    padding: 2rem;
-    left: 30%;
-    top: 30%;
-    margin: auto;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    z-index: 5;
-}
+@media screen and (max-width: 1000px) {
+  .appointmentsSection {
+    width: 50%;
+    padding: 1rem;
+  }
 
-.createForm h1{
-    font-size: 1.5rem;
-    font-weight: 700;
-}
-
-.nameFields{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 80%;
-}
-.nameFields input[type=text]{
-    width: 47.5%;
-}
-
-.createForm button{
-    width: 30%;
-    color: white;
-    background-color: green ;
-}
-
-.closeButton{
-    position: absolute;
-    right: 5%;
-    top: 5%;
-}
-
-.userAgeLocation{
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
-}
-
-.userAgeLocation input{
-    width: 47.5%;
-}
-
-.timeDateSelection{
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
-}
-
-.timeDateSelection input{
-    width: 47.5%;
-}
-
-.timeDateSelection select{
+  .userContainer {
     width: 100%;
+    margin: 1rem 0rem;
+  }
+  .createForm {
+    width: 50%;
+    left: 25%;
+  }
+  .appointmentStatus{
+    transform: scale(0.9);
+    width: 35%;
+  }
 }
 
-
-
-.mainBody{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.appointmentsSection{
-    padding: 2rem;
-    width: 45%;
-}
-
-.appointmentsSection h1{
-    font-size: 1.5rem;
-    font-weight: 700;
-}
-
-.userContainer{
-    margin: 1rem;
-    background: linear-gradient(160deg,rgb(78, 74, 74),rgb(82, 81, 81));
-    padding: 0.5rem;
-    border-radius: 10px;
-    color: azure;
-    width: 80%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    position: relative;
-}
-
-.userDateContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color:gray;
-    padding: 0.35rem;
-    font-size: 0.75rem;
-    border-radius: 5px;
-    width: 10%;
-    justify-content: center;
-}
-
-.userInfoContainer{
-    padding: 0.5rem;
+@media screen and (max-width: 900px) {
+  .appointmentsSection {
     width: 90%;
+    padding: 1rem;
+  }
+
+  .userContainer {
+    width: 100%;
+  }
+  .createForm {
+    width: 74%;
+    left: 13%;
+  }
+  .appointmentStatus{
+    width: 50%;
+  }
+}
+@media screen and (max-width:700px){
+  .WebHeader>h1{
+    font-size: 1.75rem;
+    margin: 0 0 0.5rem 0;
+  }
+  .WebHeader{
+    padding: 1.5rem;
+    height: 25vh;
+  }
+}
+@media screen and (max-width: 500px) {
+  .appointmentsSection {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .userContainer {
+    width: 100%;
+  }
+
+  .userDateContainer {
+    width: 15%;
+  }
+
+  .createForm {
+    width: 90%;
+    left: 4%;
+    padding: 0rem;
+  }
+  .appointmentStatus{
+    transform: scale(0.8);
+    width: 50%;
+    margin: 0.25rem;
+  }
+
+  .WebHeader>h1{
+    font-size: 1.25rem;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .WebHeader>div>h1{
+    font-size: 1rem;
+  }
+  .WebHeader{
+    padding: 0.5rem;
+    height: 25vh;
+  }
 }
 
-.userInfoContainer img{
-    width: 1.25rem;
-    height: 1.25rem;
-    margin: 0 0.25rem;
-}
 
-.userInfoContainer span{
-    margin: 0.5rem 0.25rem;
-}
-
-.userAppDetails{
-    display: flex;
-   
-}
-
-.userAppDetails input{
-    width: 25%;
-    margin: 0.5rem;
-}
-
-.userContainer .editButton,.deleteButton{
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    background-color: transparent;
-    border: 0px;
-}
-
-.deleteButton{
-    right: 5px;
-    top:40px
-}
-
-.userContainer button img{
-    width: 1.25rem;
-    height: 1.25rem;
-
-}
-
-.userContainer input,select{
-    height: 35px;
-}
-.locationDetails,.timeDetails{
-    display: flex;
-    align-items: center;
-}
-
-.locationDetails input{
-    width: 70%;
-}
-
-.timeDetails div{
-    width: 70%;
-    height: 35px;
-    margin: 0.5rem;
-}
-
-.locationDetails img,.timeDetails img{
-    width: 1.5rem;
-    height: 1.5rem;
+button:hover{
+  cursor: pointer;
 }

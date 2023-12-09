@@ -1,14 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "../Styles/main.module.css";
 import {
   updateEditMode,
-  updateList,
-  updateTodayList,
-  updateUpcomingList,
+  updateList
 } from "../Redux/Actions";
-import { todayDate } from "./App";
 import { connect } from "react-redux";
-import { Link, redirect } from "react-router-dom";
 
 const Client = (props) => {
   const { data, date, dispatch } = props;
@@ -18,6 +14,7 @@ const Client = (props) => {
   };
 
   const handleEdit = (id) => {
+    document.getElementById("main").style.filter = "blur(4px)";
     dispatch(updateEditMode(true,id));
   };
 
@@ -36,11 +33,11 @@ const Client = (props) => {
             </div>
             <div className={styles.userAppDetails}>
               <span className={styles.locationDetails}>
-                <img src="https://img.icons8.com/ios-glyphs/30/FA5252/marker--v1.png" />
+                <img src="https://img.icons8.com/ios-glyphs/30/FA5252/marker--v1.png" alt="location pin"/>
                 {data.location}
               </span>
               <span className={styles.timeDetails}>
-                <img src="https://img.icons8.com/ios-glyphs/30/40C057/time--v1.png" />
+                <img src="https://img.icons8.com/ios-glyphs/30/40C057/time--v1.png" alt="timeIcon" />
                 {data.time}
               </span>
             </div>
@@ -53,13 +50,13 @@ const Client = (props) => {
                 handleEdit(data.id);
               }}
             >
-              <img src="https://img.icons8.com/ios-glyphs/30/40C057/edit.png" />
+              <img src="https://img.icons8.com/ios-glyphs/30/40C057/edit.png" alt="editIcon"/>
             </button>
             <button
               className={styles.deleteButton}
               onClick={() => handleDelete(data.id)}
             >
-              <img src="https://img.icons8.com/ios-glyphs/30/FA5252/filled-trash.png" />
+              <img src="https://img.icons8.com/ios-glyphs/30/FA5252/filled-trash.png" alt="deleteIcon"/>
             </button>
           </div>
     </div>

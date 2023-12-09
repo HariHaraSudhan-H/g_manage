@@ -1,26 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styles from "../Styles/main.module.css";
 import { connect } from "react-redux";
-import {
-  updateEditMode,
-  updateList,
-  updateTodayList,
-  updateUpcomingList,
-} from "../Redux/Actions";
+import { updateEditMode, updateList } from "../Redux/Actions";
 import { todayDate } from "./App";
+import { Alert, Snackbar } from "@mui/material";
 
 const CreateForm = (props) => {
   const today = new Date();
-  const {
-    createMode,
-    setCreateMode,
-    dispatch,
-    editMode,
-    editId,
-    list,
-    todayAppointments,
-    upcomingAppointments,
-  } = props;
+  const [open, setOpen] = useState(false);
+  const { setCreateMode, dispatch, editMode, editId, list } = props;
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
   const [age, setAge] = useState("");
@@ -42,11 +30,19 @@ const CreateForm = (props) => {
       setDate(data.date);
       setTime(data.time);
     }
-  }, [editMode]);
+  }, [editMode, editId, list]);
   const handleClose = () => {
     document.getElementById("main").style.filter = "";
     setCreateMode(false);
     dispatch(updateEditMode(false));
+  };
+
+  const handleNotificationClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
   };
 
   const getNewData = () => {
@@ -81,6 +77,8 @@ const CreateForm = (props) => {
       let updatedList = applyChanges(list);
       dispatch(updateList(updatedList));
       dispatch(updateEditMode(false, undefined));
+      document.getElementById("main").style.filter = "";
+      setOpen(true);
       return;
     }
     setCreateMode(false);
@@ -90,16 +88,20 @@ const CreateForm = (props) => {
     };
     dispatch(updateList([...props.list, newData]));
     document.getElementById("main").style.filter = "";
+    setOpen(true);
   };
 
   const handleTimeChange = (e) => {
     setTime(e.target.value);
   };
   return (
-    <div className={styles.createForm}>
+    <form className={styles.createForm}>
       <h1>{editMode ? "Edit Appointment" : "Add Appointment"}</h1>
       <span className={styles.closeButton} onClick={handleClose}>
-        <img src="https://img.icons8.com/ios-glyphs/30/delete-sign.png" />
+        <img
+          src="https://img.icons8.com/ios-glyphs/30/delete-sign.png"
+          alt="closeIcon"
+        />
       </span>
       <div className={styles.nameFields}>
         <input
@@ -110,6 +112,7 @@ const CreateForm = (props) => {
           onChange={(e) => {
             setFirstName(e.target.value);
           }}
+          required
         />
         <input
           class="input"
@@ -119,6 +122,7 @@ const CreateForm = (props) => {
           onChange={(e) => {
             setSecondName(e.target.value);
           }}
+          required
         />
       </div>
       <div className={styles.userAgeLocation}>
@@ -130,15 +134,17 @@ const CreateForm = (props) => {
           onChange={(e) => {
             setLocation(e.target.value);
           }}
+          required
         />
         <input
           class="input"
-          type="text"
+          type="number"
           placeholder="Age"
           value={age}
           onChange={(e) => {
             setAge(e.target.value);
           }}
+          required
         />
       </div>
 
@@ -146,11 +152,15 @@ const CreateForm = (props) => {
         <input
           class="input"
           type="date"
+          min={`${todayDate.getFullYear()}-${todayDate.getMonth() + 1}-${(
+            "0" + todayDate.getDay()
+          ).slice(-2)}`}
           value={date}
           onChange={(e) => {
             setDate(e.target.value);
             console.log(typeof e.target.value);
           }}
+          required
         />
         <div class="select" style={{ width: "47.5%" }}>
           <select onChange={handleTimeChange}>
@@ -167,10 +177,21 @@ const CreateForm = (props) => {
           </select>
         </div>
       </div>
-      <button class="button" onClick={handleCreate}>
+      <button class="button" type="submit" onClick={handleCreate}>
         {editMode ? "Save" : "Create"}
       </button>
-    </div>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert
+          onClose={handleNotificationClose}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          {editMode
+            ? "Appointment Updated Successfully"
+            : "Appointment Created"}
+        </Alert>
+      </Snackbar>
+    </form>
   );
 };
 

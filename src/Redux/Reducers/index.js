@@ -10,7 +10,7 @@ const intialState = {
   todayAppointments: [],
   upcomingAppointments: [],
   editMode: false,
-  editId: undefined
+  editId: undefined,
 };
 
 export function listData(state = intialState, action) {
@@ -34,8 +34,8 @@ export function listData(state = intialState, action) {
       return {
         ...state,
         editMode: action.editMode,
-        editId: action.editId
-      }
+        editId: action.editId,
+      };
     default:
       return state;
   }
