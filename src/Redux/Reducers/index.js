@@ -1,4 +1,5 @@
 import {
+  UPDATE_EDIT_MODE,
   UPDATE_LIST,
   UPDATE_TODAY_LIST,
   UPDATE_UPCOMING_LIST,
@@ -8,6 +9,8 @@ const intialState = {
   list: [],
   todayAppointments: [],
   upcomingAppointments: [],
+  editMode: false,
+  editId: undefined
 };
 
 export function listData(state = intialState, action) {
@@ -27,6 +30,12 @@ export function listData(state = intialState, action) {
         ...state,
         upcomingAppointments: action.upcomingList,
       };
+    case UPDATE_EDIT_MODE:
+      return {
+        ...state,
+        editMode: action.editMode,
+        editId: action.editId
+      }
     default:
       return state;
   }

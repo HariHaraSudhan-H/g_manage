@@ -1,12 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../Styles/main.module.css";
-import { todayAppointments, weekAppointments } from "../Pages/Home";
 import { connect } from "react-redux";
-import { updateList, updateTodayList, updateUpcomingList } from "../Redux/Actions";
+import {
+  updateEditMode,
+  updateList,
+  updateTodayList,
+  updateUpcomingList,
+} from "../Redux/Actions";
 import { todayDate } from "./App";
 
 const CreateForm = (props) => {
   const today = new Date();
+  const {
+    createMode,
+    setCreateMode,
+    dispatch,
+    editMode,
+    editId,
+    list,
+    todayAppointments,
+    upcomingAppointments,
+  } = props;
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
   const [age, setAge] = useState("");
@@ -17,16 +31,26 @@ const CreateForm = (props) => {
     ).slice(-2)}`
   );
   const [time, setTime] = useState("");
-  const { createMode, setCreateMode, dispatch } = props;
+
+  useEffect(() => {
+    if (editMode) {
+      const data = list[editId];
+      setFirstName(data.firstname);
+      setSecondName(data.lastname);
+      setAge(data.age);
+      setLocation(data.location);
+      setDate(data.date);
+      setTime(data.time);
+    }
+  }, [editMode]);
   const handleClose = () => {
     document.getElementById("main").style.filter = "";
     setCreateMode(false);
+    dispatch(updateEditMode(false));
   };
 
-  const handleCreate = () => {
-    setCreateMode(false);
+  const getNewData = () => {
     const newData = {
-      id: props.list.length,
       firstname: firstName,
       lastname: secondName,
       age: age,
@@ -34,21 +58,37 @@ const CreateForm = (props) => {
       date: date,
       time: time,
     };
-    // todayAppointments.push(newData);
-    dispatch(updateList([...props.list, newData]));
-    if (
-      newData.date.toString() ===
-      `${todayDate.getFullYear()}-${todayDate.getMonth() + 1}-${(
-        "0" + todayDate.getDay()
-      ).slice(-2)}`.toString()
-    ) {
-      todayAppointments.push(newData);
-    dispatch(updateTodayList([...todayAppointments]));
-    }else{
-        weekAppointments.push(newData);
-        dispatch(updateUpcomingList([...weekAppointments]));
+
+    return newData;
+  };
+
+  const handleCreate = () => {
+    const applyChanges = (list) => {
+      const listData = list;
+      listData.forEach((client) => {
+        if (client.id === editId) {
+          client.firstname = firstName;
+          client.lastname = secondName;
+          client.age = age;
+          client.location = location;
+          client.time = time;
+          client.date = date;
+        }
+      });
+      return [...listData];
+    };
+    if (editMode) {
+      let updatedList = applyChanges(list);
+      dispatch(updateList(updatedList));
+      dispatch(updateEditMode(false, undefined));
+      return;
     }
-    console.log(todayAppointments);
+    setCreateMode(false);
+    const newData = {
+      id: props.list.length,
+      ...getNewData(),
+    };
+    dispatch(updateList([...props.list, newData]));
     document.getElementById("main").style.filter = "";
   };
 
@@ -57,7 +97,7 @@ const CreateForm = (props) => {
   };
   return (
     <div className={styles.createForm}>
-      <h1>Add Appointment</h1>
+      <h1>{editMode ? "Edit Appointment" : "Add Appointment"}</h1>
       <span className={styles.closeButton} onClick={handleClose}>
         <img src="https://img.icons8.com/ios-glyphs/30/delete-sign.png" />
       </span>
@@ -112,9 +152,9 @@ const CreateForm = (props) => {
             console.log(typeof e.target.value);
           }}
         />
-        <div class="select">
+        <div class="select" style={{ width: "47.5%" }}>
           <select onChange={handleTimeChange}>
-            <option>Select dropdown</option>
+            <option>Choose slot</option>
             <option>8 - 9 AM</option>
             <option>9 - 10 AM</option>
             <option>11 - 12 PM</option>
@@ -128,7 +168,7 @@ const CreateForm = (props) => {
         </div>
       </div>
       <button class="button" onClick={handleCreate}>
-        Create
+        {editMode ? "Save" : "Create"}
       </button>
     </div>
   );

@@ -4,60 +4,7 @@ import Client from "../Components/Client";
 import { connect } from "react-redux";
 import { todayDate } from "../Components/App";
 
-export let todayAppointments = [
-  // {
-  //   firstname: "Jack",
-  //   lastname: "Samson",
-  //   age: 22,
-  //   date: new Date("12/04/2023"),
-  //   location: "somewhere",
-  //   time: "11-12 AM",
-  // },
-];
-export let weekAppointments = [
-  // {
-  //   firstname: "Jack",
-  //   lastname: "James",
-  //   age: 23,
-  //   location: "somewhere",
-  //   date: new Date("2023-12-02"),
-  //   time: "11-12 AM",
-  // },
-];
-
 const Home = (props) => {
-  // useEffect(() => {
-  //   const getFilteredData = async () => {
-  //     todayAppointments = await props.list.filter(
-  //       (client) =>{
-  //         return (client.date.toString() === `${todayDate.getFullYear()}-${todayDate.getMonth() + 1}-${(
-  //           "0" + todayDate.getDay()
-  //         ).slice(-2)}`.toString())
-  //       });
-  //   };
-  //   getFilteredData();
-  //   console.log(todayAppointments);
-  // },[props.data]);
-  // const todayAppointments = [
-  //   {
-  //     firstname: "Jack",
-  //     lastname: "Samson",
-  //     age: 22,
-  //     date: new Date("12/04/2023"),
-  //     location: "somewhere",
-  //     time: "11-12 AM",
-  //   },
-  // ];
-  // const weekAppointments = [
-  //   {
-  //     firstname: "Jack",
-  //     lastname: "James",
-  //     age: 23,
-  //     location: "somewhere",
-  //     date: new Date("2023-12-02"),
-  //     time: "11-12 AM",
-  //   },
-  // ];
   return (
     <div id="main">
       <header className={styles.WebHeader}>
@@ -67,15 +14,15 @@ const Home = (props) => {
           <div className={styles.appointmentStatus}>
             <span>
               <h2>Today</h2>
-              <span>{todayAppointments.length}</span>
+              <span>{props.todayAppointments.length}</span>
             </span>
             <span>
               <h2>This Week</h2>
-              <span>{weekAppointments.length}</span>
+              <span>{props.upcomingAppointments.length}</span>
             </span>
             <span>
               <h2>Total</h2>
-              <span>{weekAppointments.length}</span>
+              <span>{props.todayAppointments.length+props.upcomingAppointments.length}</span>
             </span>
           </div>
         </div>

@@ -1,6 +1,7 @@
 export const UPDATE_LIST = "UPDATE_LIST";
 export const UPDATE_TODAY_LIST = "UPDATE_TODAY_LIST";
 export const UPDATE_UPCOMING_LIST = "UPDATE_UPCOMING_LIST";
+export const UPDATE_EDIT_MODE = "UPDATE_EDIT_MODE";
 
 export const updateList = (list)=>{
     return {
@@ -20,5 +21,13 @@ export const updateUpcomingList = (upcomingList)=>{
     return{
         type: UPDATE_UPCOMING_LIST,
         upcomingList
+    }
+}
+
+export const updateEditMode = (editMode,editId)=>{
+    return {
+        type: UPDATE_EDIT_MODE,
+        editMode,
+        editId
     }
 }
