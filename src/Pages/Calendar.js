@@ -1,9 +1,75 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { todayDate } from "../Components/App";
+import { connect } from "react-redux";
+import carryoverStyles from "../Styles/main.module.css";
+import styles from "../Styles/calendar.module.css";
+import Client from "../Components/Client";
+import { StaticDatePicker } from "@mui/x-date-pickers";
 
-const Calendar = () => {
+const Calendar = (props) => {
+  const [date, setDate] = useState("");
+  const [filteredList, setFilteredList] = useState([]);
+  const { list } = props;
+  const dateFormatted = (date) => {
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${(
+      "0" + date.getDate()
+    ).slice(-2)}`;
+  };
+
+  useEffect(() => {
+    const filteredDataList = list.filter(
+      (client) => client.date.toString() === date.toString()
+    );
+    setFilteredList(filteredDataList);
+    console.log(filteredDataList);
+  }, [date]);
+  const handleDateChange = (newDate) => {
+    const newDataFormatted = dateFormatted(newDate.$d);
+    setDate(newDataFormatted);
+    console.log(newDataFormatted);
+  };
   return (
-    <div id='main'>Calendar</div>
-  )
-}
+    <>
+      <header className={styles.calendarHeader}>
+        <h1 className="">Calendar View</h1>
+      </header>
+      <div id="main" className={styles.calendarMain}>
+        <section className={styles.datePicker}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={["DatePicker"]}>
+              <StaticDatePicker
+                label="Select Date"
+                onChange={handleDateChange}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
+        </section>
+        <section className={carryoverStyles.appointmentsSection}>
+          <h1>Your Appointments</h1>
+          {filteredList.length > 0 ? (
+            filteredList.map((data) => {
+              return <Client data={data} date={new Date(data.date)} />;
+            })
+          ) : (
+            <div className={carryoverStyles.zeroAppointmentsMessage}>
+              No Appointments
+            </div>
+          )}
+        </section>
+      </div>
+    </>
+  );
+};
 
-export default Calendar
+const callback = (state) => {
+  console.log(state);
+  return {
+    ...state,
+  };
+};
+
+export default connect(callback)(Calendar);

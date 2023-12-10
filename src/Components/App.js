@@ -16,14 +16,14 @@ function App(props) {
       (client) =>
         client.date.toString() ===
         `${todayDate.getFullYear()}-${todayDate.getMonth() + 1}-${(
-          "0" + todayDate.getDay()
+          "0" + todayDate.getDate()
         ).slice(-2)}`.toString()
     );
     const updatedUpcomingList = list.filter(
       (client) =>
         client.date.toString() !==
         `${todayDate.getFullYear()}-${todayDate.getMonth() + 1}-${(
-          "0" + todayDate.getDay()
+          "0" + todayDate.getDate()
         ).slice(-2)}`.toString()
     );
     dispatch(updateTodayList(updatedTodayList));

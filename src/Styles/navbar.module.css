@@ -7,3 +7,14 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+.navbarEnd{
+    display: flex;
+    flex-direction: row;
+}
+
+@media screen and (max-width:500px) {
+    .captionButton{
+        display: none;
+    }
+}

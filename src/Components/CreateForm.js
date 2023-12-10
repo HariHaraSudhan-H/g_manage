@@ -6,16 +6,15 @@ import { todayDate } from "./App";
 import { Alert, Snackbar } from "@mui/material";
 
 const CreateForm = (props) => {
-  const today = new Date();
   const [open, setOpen] = useState(false);
   const { setCreateMode, dispatch, editMode, editId, list } = props;
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
-  const [age, setAge] = useState("");
+  const [age, setAge] = useState(12);
   const [location, setLocation] = useState("");
   const [date, setDate] = useState(
-    `${today.getFullYear()}-${today.getMonth() + 1}-${(
-      "0" + today.getDay()
+    `${todayDate.getFullYear()}-${todayDate.getMonth() + 1}-${(
+      "0" + todayDate.getDate()
     ).slice(-2)}`
   );
   const [time, setTime] = useState("");
@@ -31,6 +30,7 @@ const CreateForm = (props) => {
       setTime(data.time);
     }
   }, [editMode, editId, list]);
+
   const handleClose = () => {
     document.getElementById("main").style.filter = "";
     setCreateMode(false);
@@ -58,7 +58,39 @@ const CreateForm = (props) => {
     return newData;
   };
 
-  const handleCreate = () => {
+  const checkValidation = () => {
+    let check = true;
+    if (firstName.length === 0 || secondName.length === 0) {
+      check = false;
+    }
+
+    if (typeof age != "number") {
+      check = false;
+    }
+
+    if (location.length === 0) {
+      check = false;
+    }
+
+    if (time.length === 0 || time === "Choose slot") {
+      check = false;
+    }
+
+    if (date.length === 0) {
+      check = false;
+    }
+
+    return check;
+  };
+
+  const handleCreate = (e) => {
+    e.preventDefault();
+    const check = checkValidation();
+
+    if (!check) {
+      alert("Please enter details in prescribed format");
+      return;
+    }
     const applyChanges = (list) => {
       const listData = list;
       listData.forEach((client) => {
@@ -73,8 +105,9 @@ const CreateForm = (props) => {
       });
       return [...listData];
     };
+
     if (editMode) {
-      let updatedList = applyChanges(list);
+      const updatedList = applyChanges(list);
       dispatch(updateList(updatedList));
       dispatch(updateEditMode(false, undefined));
       document.getElementById("main").style.filter = "";
@@ -105,7 +138,7 @@ const CreateForm = (props) => {
       </span>
       <div className={styles.nameFields}>
         <input
-          class="input"
+          className="input"
           type="text"
           placeholder="First Name"
           value={firstName}
@@ -115,7 +148,7 @@ const CreateForm = (props) => {
           required
         />
         <input
-          class="input"
+          className="input"
           type="text"
           placeholder="Last Name"
           value={secondName}
@@ -127,7 +160,7 @@ const CreateForm = (props) => {
       </div>
       <div className={styles.userAgeLocation}>
         <input
-          class="input"
+          className="input"
           type="text"
           placeholder="Location"
           value={location}
@@ -137,7 +170,7 @@ const CreateForm = (props) => {
           required
         />
         <input
-          class="input"
+          className="input"
           type="number"
           placeholder="Age"
           value={age}
@@ -150,20 +183,23 @@ const CreateForm = (props) => {
 
       <div className={styles.timeDateSelection}>
         <input
-          class="input"
+          className="input"
           type="date"
           min={`${todayDate.getFullYear()}-${todayDate.getMonth() + 1}-${(
-            "0" + todayDate.getDay()
+            "0" + todayDate.getDate()
           ).slice(-2)}`}
           value={date}
           onChange={(e) => {
             setDate(e.target.value);
             console.log(typeof e.target.value);
           }}
-          required
         />
-        <div class="select" style={{ width: "47.5%" }}>
-          <select onChange={handleTimeChange}>
+        <div className="select" style={{ width: "47.5%" }}>
+          <select
+            onChange={handleTimeChange}
+            required
+            placeholder="Choose slot"
+          >
             <option>Choose slot</option>
             <option>8 - 9 AM</option>
             <option>9 - 10 AM</option>
@@ -177,10 +213,14 @@ const CreateForm = (props) => {
           </select>
         </div>
       </div>
-      <button class="button" type="submit" onClick={handleCreate}>
+      <button className="button" type="submit" onClick={handleCreate}>
         {editMode ? "Save" : "Create"}
       </button>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleNotificationClose}
+      >
         <Alert
           onClose={handleNotificationClose}
           severity="success"

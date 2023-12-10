@@ -1,7 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styles from "../Styles/navbar.module.css";
 const Navbar = (props) => {
+  const location = useLocation();
   const handleAddOption = (e) => {
     e.preventDefault();
     props.setCreateMode(true);
@@ -9,8 +10,12 @@ const Navbar = (props) => {
     console.log(props.createMode);
   };
   return (
-    <nav class="navbar" className={styles.navItems} role="navigation" aria-label="main navigation">
-      <div class="navbar-brand" >
+    <nav
+      className={`navbar ${styles.navItems}`}
+      role="navigation"
+      aria-label="main navigation"
+    >
+      <div className="navbar-brand">
         <Link className="navbar-item" to="/">
           <h1 style={{ fontWeight: 800, fontSize: "1.75rem" }}>
             <img
@@ -22,16 +27,41 @@ const Navbar = (props) => {
           </h1>
         </Link>
       </div>
-      <div class="navbar-end">
-        <div class="navbar-item">
-          <button className="button" onClick={handleAddOption}>
-            <img
-              src="https://img.icons8.com/material-rounded/24/add.png"
-              alt="Add Icon"
-              className={styles.addButtonImg}
-            />{" "}
-            Add
-          </button>
+      <div className={`navbar-end ${styles.navbarEnd}`}>
+        {location.pathname === "/" ? (
+          <div className="navbar-item">
+            <button className="button" onClick={handleAddOption}>
+              <img
+                src="https://img.icons8.com/material-rounded/24/add.png"
+                alt="Add Icon"
+                className={styles.addButtonImg}
+              />{" "}
+              <span className={styles.captionButton}>Add</span>
+            </button>
+          </div>
+        ) : (
+          <></>
+        )}
+        <div className="navbar-item">
+          {location.pathname === "/" ? (
+            <Link className="button" to="/calendar">
+              <img
+                src="https://img.icons8.com/color/48/calendar--v1.png"
+                alt="Calender Icon"
+                className={styles.addButtonImg}
+              />{" "}
+              <span className={styles.captionButton}>View</span>
+            </Link>
+          ) : (
+            <Link className="button" to="/">
+              <img
+                src="https://img.icons8.com/material-outlined/24/home--v2.png"
+                alt="Calender Icon"
+                className={styles.addButtonImg}
+              />{" "}
+              <span className={styles.captionButton}>Home</span>
+            </Link>
+          )}
         </div>
       </div>
     </nav>
