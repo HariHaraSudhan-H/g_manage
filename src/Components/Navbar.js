@@ -9,7 +9,6 @@ const Navbar = (props) => {
     e.preventDefault();
     props.setCreateMode(true);
     document.getElementById("main").style.filter = "blur(4px)";
-    console.log(props.createMode);
   };
   return (
     <nav

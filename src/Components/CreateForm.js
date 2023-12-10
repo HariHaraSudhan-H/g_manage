@@ -64,7 +64,6 @@ const CreateForm = (props) => {
     }
 
     if (typeof age !== "number"||age===0) {
-      console.log(typeof age);
       check = false;
       message = "Enter age as per format";
     }
@@ -119,7 +118,6 @@ const CreateForm = (props) => {
           client.date = date;
         }
       });
-      console.log(listData);
       return [...listData];
     };
     dispatch(
@@ -221,7 +219,6 @@ const CreateForm = (props) => {
           value={date}
           onChange={(e) => {
             setDate(e.target.value);
-            console.log(typeof e.target.value);
           }}
         />
         <div className="select" style={{ width: "47.5%" }}>

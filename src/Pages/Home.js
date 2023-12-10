@@ -43,8 +43,8 @@ const Home = (props) => {
           <h1>Today's Appointments</h1>
           <div>
             {props.todayAppointments.length > 0 ? (
-              props.todayAppointments.map((data) => {
-                return <Client data={data} date={new Date(data.date)} />;
+              props.todayAppointments.map((data,index) => {
+                return <Client data={data} date={new Date(data.date)} key={index}/>;
               })
             ) : (
               <div className={styles.zeroAppointmentsMessage}>
@@ -57,8 +57,8 @@ const Home = (props) => {
           <h1>Upcoming Appointments</h1>
           <div>
              {props.upcomingAppointments.length > 0 ? (
-            props.upcomingAppointments.map((data) => {
-              return <Client data={data} date={new Date(data.date)} />;
+            props.upcomingAppointments.map((data,index) => {
+              return <Client data={data} date={new Date(data.date)} key={index} />;
             })
           ) : (
             <div className={styles.zeroAppointmentsMessage}>

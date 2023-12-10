@@ -25,12 +25,10 @@ const Calendar = (props) => {
       (client) => client.date.toString() === date.toString()
     );
     setFilteredList(filteredDataList);
-    console.log(filteredDataList);
   }, [date,list]);
   const handleDateChange = (newDate) => {
     const newDataFormatted = dateFormatted(newDate.$d);
     setDate(newDataFormatted);
-    console.log(newDataFormatted);
   };
   return (
     <>
@@ -52,8 +50,8 @@ const Calendar = (props) => {
           <h1>Your Appointments</h1>
           <div>
             {filteredList.length > 0 ? (
-            filteredList.map((data) => {
-              return <Client data={data} date={new Date(data.date)} />;
+            filteredList.map((data,index) => {
+              return <Client data={data} date={new Date(data.date)} key={index} />;
             })
           ) : (
             <div className={carryoverStyles.zeroAppointmentsMessage}>
