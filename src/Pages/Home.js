@@ -26,10 +26,10 @@ const Home = (props) => {
               <h2>Today</h2>
               <span>{props.todayAppointments.length}</span>
             </span>
-            <span>
+            {/* <span>
               <h2>Week</h2>
               <span>{props.upcomingAppointments.length}</span>
-            </span>
+            </span> */}
             <span>
               <h2>Total</h2>
               <span>
