@@ -1,12 +1,20 @@
-import React from "react";
-import styles from "../Styles/main.module.css";
-import { updateEditMode, updateList } from "../Redux/Actions";
+import React, { useState } from "react";
 import { connect } from "react-redux";
+import { updateEditMode, updateList, updateNotification } from "../Redux/Actions";
+import styles from "../Styles/main.module.css";
+import { Alert, Snackbar } from "@mui/material";
 
 const Client = (props) => {
   const { data, date, dispatch } = props;
   const handleDelete = (id) => {
     const list = props.list.filter((client) => client.id !== id);
+    dispatch(
+      updateNotification({
+        open: true,
+        message:"Appointment deleted successfully",
+        severity:"success"
+      })
+    );
     dispatch(updateList(list));
   };
 

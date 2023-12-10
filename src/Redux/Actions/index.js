@@ -2,6 +2,7 @@ export const UPDATE_LIST = "UPDATE_LIST";
 export const UPDATE_TODAY_LIST = "UPDATE_TODAY_LIST";
 export const UPDATE_UPCOMING_LIST = "UPDATE_UPCOMING_LIST";
 export const UPDATE_EDIT_MODE = "UPDATE_EDIT_MODE";
+export const UPDATE_NOTIFICATION = "UPDATE_NOTIFICATION";
 
 export const updateList = (list)=>{
     return {
@@ -29,5 +30,12 @@ export const updateEditMode = (editMode,editId)=>{
         type: UPDATE_EDIT_MODE,
         editMode,
         editId
+    }
+}
+
+export const updateNotification = (notification)=>{
+    return{
+        type: UPDATE_NOTIFICATION,
+        notification
     }
 }

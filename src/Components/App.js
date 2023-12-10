@@ -6,9 +6,10 @@ import { useEffect, useState } from "react";
 import CreateForm from "./CreateForm";
 import { connect } from "react-redux";
 import { updateTodayList, updateUpcomingList } from "../Redux/Actions";
+import Notification from "./Notification";
 export const todayDate = new Date();
 function App(props) {
-  const { dispatch, list } = props;
+  const { dispatch, list,notification } = props;
   const [createMode, setCreateMode] = useState(false);
 
   useEffect(() => {
@@ -42,6 +43,7 @@ function App(props) {
         <Route path="/" element={<Home />} />
         <Route path="/calendar" element={<Calendar />} />
       </Routes>
+      {<Notification/>}
     </div>
   );
 }

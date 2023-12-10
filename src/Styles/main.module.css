@@ -80,7 +80,7 @@
   width: 47.5%;
 }
 
-.createForm button {
+.createForm>button {
   width: 30%;
   color: white;
   background-color: green;
@@ -301,11 +301,18 @@ select {
     padding: 1.5rem;
     height: 25vh;
   }
+  .userInfoContainer{
+    font-size: 0.9rem;
+  }
 }
 @media screen and (max-width: 500px) {
   .appointmentsSection {
     width: 100%;
     padding: 1rem;
+  }
+
+  .appointmentsSection h1{
+    font-size: 1.1rem;
   }
 
   .userContainer {
@@ -314,6 +321,10 @@ select {
 
   .userDateContainer {
     width: 15%;
+  }
+
+  .userInfoContainer{
+    font-size: 0.75rem;
   }
 
   .createForm {
@@ -325,6 +336,7 @@ select {
     transform: scale(0.8);
     width: 50%;
     margin: 0.25rem;
+    height: 70px;
   }
 
   .WebHeader>h1{

@@ -1,6 +1,7 @@
 import {
   UPDATE_EDIT_MODE,
   UPDATE_LIST,
+  UPDATE_NOTIFICATION,
   UPDATE_TODAY_LIST,
   UPDATE_UPCOMING_LIST,
 } from "../Actions";
@@ -11,6 +12,11 @@ const intialState = {
   upcomingAppointments: [],
   editMode: false,
   editId: undefined,
+  notification: {
+    open: false,
+    message:"",
+    severity:""
+  }
 };
 
 export function listData(state = intialState, action) {
@@ -36,6 +42,11 @@ export function listData(state = intialState, action) {
         editMode: action.editMode,
         editId: action.editId,
       };
+    case UPDATE_NOTIFICATION:
+      return{
+        ...state,
+        notification: action.notification
+      }
     default:
       return state;
   }

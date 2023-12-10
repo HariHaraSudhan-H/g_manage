@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styles from "../Styles/main.module.css";
 import { connect } from "react-redux";
-import { updateEditMode, updateList } from "../Redux/Actions";
+import {
+  updateEditMode,
+  updateList,
+  updateNotification,
+} from "../Redux/Actions";
 import { todayDate } from "./App";
 import { Alert, Snackbar } from "@mui/material";
+import { green } from "@mui/material/colors";
+import Notification from "./Notification";
 
 const CreateForm = (props) => {
   const [open, setOpen] = useState(false);
@@ -37,14 +43,6 @@ const CreateForm = (props) => {
     dispatch(updateEditMode(false));
   };
 
-  const handleNotificationClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
-
   const getNewData = () => {
     const newData = {
       firstname: firstName,
@@ -60,35 +58,50 @@ const CreateForm = (props) => {
 
   const checkValidation = () => {
     let check = true;
+    let message = "";
     if (firstName.length === 0 || secondName.length === 0) {
       check = false;
+      message = "Enter names as per format";
     }
 
-    if (typeof age != "number") {
+    if (typeof age !== "number"||age===0) {
+      console.log(typeof age);
       check = false;
+      message = "Enter age as per format";
     }
 
     if (location.length === 0) {
       check = false;
+      message = "Enter location as per format";
     }
 
     if (time.length === 0 || time === "Choose slot") {
       check = false;
+      message = "Choose a time slot from dropdown";
     }
 
     if (date.length === 0) {
       check = false;
+      message = "Choose a date";
     }
 
-    return check;
+    dispatch(updateNotification({
+      open:true,
+      message: message,
+      severity:"warning"
+    }))
+
+    return {
+      check: check,
+      message: message,
+    };
   };
 
-  const handleCreate = (e) => {
+  const handleSave = (e) => {
     e.preventDefault();
     const check = checkValidation();
 
-    if (!check) {
-      alert("Please enter details in prescribed format");
+    if (!check.check) {
       return;
     }
     const applyChanges = (list) => {
@@ -103,15 +116,23 @@ const CreateForm = (props) => {
           client.date = date;
         }
       });
+      console.log(listData);
       return [...listData];
     };
-
+    dispatch(
+      updateNotification({
+        open: true,
+        message: editMode
+          ? "Appointment updated successfully"
+          : "Appointment created successfully",
+        severity:"success"
+      })
+    );
     if (editMode) {
       const updatedList = applyChanges(list);
       dispatch(updateList(updatedList));
       dispatch(updateEditMode(false, undefined));
       document.getElementById("main").style.filter = "";
-      setOpen(true);
       return;
     }
     setCreateMode(false);
@@ -121,7 +142,6 @@ const CreateForm = (props) => {
     };
     dispatch(updateList([...props.list, newData]));
     document.getElementById("main").style.filter = "";
-    setOpen(true);
   };
 
   const handleTimeChange = (e) => {
@@ -175,7 +195,8 @@ const CreateForm = (props) => {
           placeholder="Age"
           value={age}
           onChange={(e) => {
-            setAge(e.target.value);
+            const newAge = e.target.value;
+            setAge(Number(newAge));
           }}
           required
         />
@@ -213,24 +234,9 @@ const CreateForm = (props) => {
           </select>
         </div>
       </div>
-      <button className="button" type="submit" onClick={handleCreate}>
+      <button className="button" type="submit" onClick={handleSave}>
         {editMode ? "Save" : "Create"}
       </button>
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleNotificationClose}
-      >
-        <Alert
-          onClose={handleNotificationClose}
-          severity="success"
-          sx={{ width: "100%" }}
-        >
-          {editMode
-            ? "Appointment Updated Successfully"
-            : "Appointment Created"}
-        </Alert>
-      </Snackbar>
     </form>
   );
 };
