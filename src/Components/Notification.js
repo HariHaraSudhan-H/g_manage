@@ -4,16 +4,18 @@ import { connect } from "react-redux";
 import { updateNotification } from "../Redux/Actions";
 
 const Notification = (props) => {
-    const {notification,dispatch} = props;
+  const { notification, dispatch } = props;
+
+  // Handles notification close button
   const handleNotificationClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
     const newNotification = {
-        ...notification,
-        open: false
-    }
-    dispatch(updateNotification(newNotification))
+      ...notification,
+      open: false,
+    };
+    dispatch(updateNotification(newNotification));
   };
 
   return (
@@ -22,11 +24,11 @@ const Notification = (props) => {
         open={notification.open}
         autoHideDuration={6000}
         onClose={handleNotificationClose}
-        anchorOrigin={{horizontal:"right",vertical:"bottom"}}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <Alert
           onClose={handleNotificationClose}
-          severity={notification.severity||"success"}
+          severity={notification.severity || "success"}
           sx={{ width: "100%" }}
         >
           {notification.message}
@@ -36,10 +38,9 @@ const Notification = (props) => {
   );
 };
 const callback = (state) => {
-    console.log(state);
-    return {
-      ...state,
-    };
+  return {
+    ...state,
   };
-  
-  export default connect(callback)(Notification);
+};
+
+export default connect(callback)(Notification);

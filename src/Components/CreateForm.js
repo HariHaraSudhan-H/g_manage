@@ -7,12 +7,7 @@ import {
   updateNotification,
 } from "../Redux/Actions";
 import { todayDate } from "./App";
-import { Alert, Snackbar } from "@mui/material";
-import { green } from "@mui/material/colors";
-import Notification from "./Notification";
-
 const CreateForm = (props) => {
-  const [open, setOpen] = useState(false);
   const { setCreateMode, dispatch, editMode, editId, list } = props;
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
@@ -37,12 +32,15 @@ const CreateForm = (props) => {
     }
   }, [editMode, editId, list]);
 
+  // Handles closing of Create Dialog box and discards unsaved data
   const handleClose = () => {
     document.getElementById("main").style.filter = "";
     setCreateMode(false);
     dispatch(updateEditMode(false));
   };
 
+
+  // Gives us new fresh date for updating the updations
   const getNewData = () => {
     const newData = {
       firstname: firstName,
@@ -56,6 +54,7 @@ const CreateForm = (props) => {
     return newData;
   };
 
+  // Checks for logical errors for the data in form
   const checkValidation = () => {
     let check = true;
     let message = "";
@@ -97,13 +96,17 @@ const CreateForm = (props) => {
     };
   };
 
+  // Handles saving the data entered in the form
   const handleSave = (e) => {
     e.preventDefault();
     const check = checkValidation();
 
+    // Neglects the form if any error found
     if (!check.check) {
       return;
     }
+
+    // applied changes to the data in the list
     const applyChanges = (list) => {
       const listData = list;
       listData.forEach((client) => {
@@ -128,6 +131,8 @@ const CreateForm = (props) => {
         severity:"success"
       })
     );
+
+    // performs when data is updated
     if (editMode) {
       const updatedList = applyChanges(list);
       dispatch(updateList(updatedList));
@@ -135,6 +140,8 @@ const CreateForm = (props) => {
       document.getElementById("main").style.filter = "";
       return;
     }
+
+    // executes when new appointment is created
     setCreateMode(false);
     const newData = {
       id: props.list.length,
@@ -144,9 +151,11 @@ const CreateForm = (props) => {
     document.getElementById("main").style.filter = "";
   };
 
+  // handles changing of time from dropdown
   const handleTimeChange = (e) => {
     setTime(e.target.value);
   };
+
   return (
     <form className={styles.createForm}>
       <h1>{editMode ? "Edit Appointment" : "Add Appointment"}</h1>
@@ -242,7 +251,6 @@ const CreateForm = (props) => {
 };
 
 const callback = (state) => {
-  console.log(state);
   return {
     ...state,
   };

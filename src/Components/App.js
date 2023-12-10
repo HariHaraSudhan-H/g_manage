@@ -9,10 +9,12 @@ import { updateTodayList, updateUpcomingList } from "../Redux/Actions";
 import Notification from "./Notification";
 export const todayDate = new Date();
 function App(props) {
-  const { dispatch, list,notification } = props;
+  const { dispatch, list } = props;
   const [createMode, setCreateMode] = useState(false);
 
   useEffect(() => {
+
+    // Filters todays appointment list from complete list
     const updatedTodayList = list.filter(
       (client) =>
         client.date.toString() ===
@@ -20,6 +22,8 @@ function App(props) {
           "0" + todayDate.getDate()
         ).slice(-2)}`.toString()
     );
+
+    // filters other appointment excluding today's
     const updatedUpcomingList = list.filter(
       (client) =>
         client.date.toString() !==
@@ -27,6 +31,7 @@ function App(props) {
           "0" + todayDate.getDate()
         ).slice(-2)}`.toString()
     );
+
     dispatch(updateTodayList(updatedTodayList));
     dispatch(updateUpcomingList(updatedUpcomingList));
   }, [list,dispatch]);
@@ -49,7 +54,6 @@ function App(props) {
 }
 
 const callback = (state) => {
-  console.log(state);
   return {
     ...state,
   };

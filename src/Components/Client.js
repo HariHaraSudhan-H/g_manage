@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { updateEditMode, updateList, updateNotification } from "../Redux/Actions";
 import styles from "../Styles/main.module.css";
-import { Alert, Snackbar } from "@mui/material";
 
 const Client = (props) => {
   const { data, date, dispatch } = props;
+
+  // Handles deleting appointments and generates notification
   const handleDelete = (id) => {
     const list = props.list.filter((client) => client.id !== id);
     dispatch(
@@ -18,12 +19,14 @@ const Client = (props) => {
     dispatch(updateList(list));
   };
 
+  // Handles editing of appointments
   const handleEdit = (id) => {
     document.getElementById("main").style.filter = "blur(4px)";
     dispatch(updateEditMode(true, id));
   };
 
   return (
+
     <div className={styles.userContainer}>
       <div className={styles.userDateContainer}>
         <div>{date.getDate()}</div>
@@ -32,7 +35,7 @@ const Client = (props) => {
         </div>
       </div>
       <div className={styles.userInfoContainer}>
-        <div cl>
+        <div>
           {data.firstname} {data.lastname}
         </div>
         <div className={styles.userAppDetails}>
@@ -82,7 +85,6 @@ const Client = (props) => {
 };
 
 const callback = (state) => {
-  console.log(state);
   return {
     ...state,
   };

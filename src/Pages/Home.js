@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { todayDate } from "../Components/App";
 
 const Home = (props) => {
+  // gives us greetings as per time
   const getGreetings = () => {
     const time = todayDate.getHours();
     if (time > 0 && time < 12) {
@@ -15,6 +16,7 @@ const Home = (props) => {
       return "Good Evening";
     }
   };
+
   return (
     <div id="main">
       <header className={styles.WebHeader}>
@@ -26,10 +28,6 @@ const Home = (props) => {
               <h2>Today</h2>
               <span>{props.todayAppointments.length}</span>
             </span>
-            {/* <span>
-              <h2>Week</h2>
-              <span>{props.upcomingAppointments.length}</span>
-            </span> */}
             <span>
               <h2>Total</h2>
               <span>
@@ -49,19 +47,26 @@ const Home = (props) => {
                 return <Client data={data} date={new Date(data.date)} />;
               })
             ) : (
-              <div className={styles.zeroAppointmentsMessage}>No Appointments</div>
+              <div className={styles.zeroAppointmentsMessage}>
+                No Appointments
+              </div>
             )}
           </div>
         </section>
         <section className={styles.appointmentsSection}>
           <h1>Upcoming Appointments</h1>
-          {props.upcomingAppointments.length > 0 ? (
+          <div>
+             {props.upcomingAppointments.length > 0 ? (
             props.upcomingAppointments.map((data) => {
               return <Client data={data} date={new Date(data.date)} />;
             })
           ) : (
-            <div className={styles.zeroAppointmentsMessage}>No Appointments</div>
+            <div className={styles.zeroAppointmentsMessage}>
+              No Appointments
+            </div>
           )}
+          </div>
+         
         </section>
       </main>
     </div>
@@ -69,7 +74,6 @@ const Home = (props) => {
 };
 
 const callback = (state) => {
-  console.log(state);
   return {
     ...state,
   };

@@ -3,6 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import styles from "../Styles/navbar.module.css";
 const Navbar = (props) => {
   const location = useLocation();
+
+  // Handles addition of appointment button click
   const handleAddOption = (e) => {
     e.preventDefault();
     props.setCreateMode(true);

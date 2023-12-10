@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { todayDate } from "../Components/App";
 import { connect } from "react-redux";
 import carryoverStyles from "../Styles/main.module.css";
 import styles from "../Styles/calendar.module.css";
@@ -14,6 +12,8 @@ const Calendar = (props) => {
   const [date, setDate] = useState("");
   const [filteredList, setFilteredList] = useState([]);
   const { list } = props;
+
+  // formats and gives us date in required format
   const dateFormatted = (date) => {
     return `${date.getFullYear()}-${date.getMonth() + 1}-${(
       "0" + date.getDate()
@@ -26,7 +26,7 @@ const Calendar = (props) => {
     );
     setFilteredList(filteredDataList);
     console.log(filteredDataList);
-  }, [date]);
+  }, [date,list]);
   const handleDateChange = (newDate) => {
     const newDataFormatted = dateFormatted(newDate.$d);
     setDate(newDataFormatted);
@@ -50,7 +50,8 @@ const Calendar = (props) => {
         </section>
         <section className={carryoverStyles.appointmentsSection}>
           <h1>Your Appointments</h1>
-          {filteredList.length > 0 ? (
+          <div>
+            {filteredList.length > 0 ? (
             filteredList.map((data) => {
               return <Client data={data} date={new Date(data.date)} />;
             })
@@ -59,6 +60,8 @@ const Calendar = (props) => {
               No Appointments
             </div>
           )}
+          </div>
+          
         </section>
       </div>
     </>
@@ -66,7 +69,6 @@ const Calendar = (props) => {
 };
 
 const callback = (state) => {
-  console.log(state);
   return {
     ...state,
   };

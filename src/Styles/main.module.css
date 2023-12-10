@@ -1,3 +1,5 @@
+
+/* Styles for Website Header */
 .WebHeader {
   height: 40vh;
   padding: 2rem;
@@ -18,6 +20,7 @@
   font-size:1.25rem;
 }
 
+/* Styles for appointment count status */
 .appointmentStatus {
   background-color: white;
   display: flex;
@@ -47,6 +50,7 @@
   text-align: center;
 }
 
+/* styles for appointment creation form */
 .createForm {
   position: absolute;
   width: 40%;
@@ -96,6 +100,8 @@
   cursor: pointer;
 }
 
+/* Styles for Client component */
+
 .userAgeLocation {
   width: 80%;
   display: flex;
@@ -120,6 +126,7 @@
   width: 100%;
 }
 
+/* Styles for Main structure of website */
 .mainBody {
   display: flex;
   flex-direction: row;
@@ -129,6 +136,11 @@
 .appointmentsSection {
   padding: 2rem;
   width: 48%;
+}
+
+.appointmentsSection>div{
+  height: 500px;
+  overflow-y: scroll;
 }
 
 .appointmentsSection h1 {
@@ -141,6 +153,8 @@
   margin: 5rem;
   font-size: 1rem;
 }
+
+/* Styles for client display */
 
 .userContainer {
   margin: 1rem;
@@ -357,7 +371,22 @@ select {
   }
 }
 
+/* Common styles */
 
 button:hover{
   cursor: pointer;
+}
+
+/* Scroll bar */
+::-webkit-scrollbar {
+  width: 7.5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a4a8a3;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #858383;
 }
