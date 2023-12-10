@@ -18,7 +18,7 @@ The page will reload when you make changes.\
 
 ### Home page of web site
 
-![image](https://github.com/HariHaraSudhan-H/g_manage/assets/115916940/888b0767-12d1-490a-bff9-64bd9f5fe310)
+![image](https://github.com/HariHaraSudhan-H/g_manage/assets/115916940/b703a7f6-9603-4239-b788-80b734faf60e)
 
 ### Calendar View
 
@@ -26,19 +26,23 @@ The page will reload when you make changes.\
 
 ### Appointment Creation Page
 
-![image](https://github.com/HariHaraSudhan-H/g_manage/assets/115916940/d455d697-e6a0-4331-bbae-44cd1d473892)
+![image](https://github.com/HariHaraSudhan-H/g_manage/assets/115916940/0b33cdd2-1a10-492a-9eb8-4250144af6ef)
+
 
 ### After appointment creation
 
-![image](https://github.com/HariHaraSudhan-H/g_manage/assets/115916940/87353b6f-4d37-46d7-a88b-fda82a3f4098)
+![image](https://github.com/HariHaraSudhan-H/g_manage/assets/115916940/fbe22cd9-fe5c-4e06-af09-ddb19a93d49a)
+
 
 ### Appointment editing page
 
-![image](https://github.com/HariHaraSudhan-H/g_manage/assets/115916940/51963828-e63b-4394-aa35-b26c193d52e3)
+![image](https://github.com/HariHaraSudhan-H/g_manage/assets/115916940/cd6d6136-e1ec-4887-914d-aa43a290617d)
+
 
 ### After appointment updation
 
-![image](https://github.com/HariHaraSudhan-H/g_manage/assets/115916940/6b896519-bd07-4e28-b62a-c6dfaaf6c031)
+![image](https://github.com/HariHaraSudhan-H/g_manage/assets/115916940/e847a867-683d-48ba-9cce-4581154bfaf2)
+
 
 ### Calendar View Page
 
@@ -46,6 +50,7 @@ The page will reload when you make changes.\
 
 ### After appointment deletion
 
-![image](https://github.com/HariHaraSudhan-H/g_manage/assets/115916940/94aabc1f-8c14-4341-a2f3-c0073f31e062)
+![image](https://github.com/HariHaraSudhan-H/g_manage/assets/115916940/29e9bb45-7b93-4df8-8261-0117cf3dd1aa)
+
 
 
