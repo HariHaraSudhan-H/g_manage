@@ -11,7 +11,7 @@ const CreateForm = (props) => {
   const { setCreateMode, dispatch, editMode, editId, list } = props;
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
-  const [age, setAge] = useState(12);
+  const [age, setAge] = useState("");
   const [location, setLocation] = useState("");
   const [date, setDate] = useState(
     `${todayDate.getFullYear()}-${todayDate.getMonth() + 1}-${(
